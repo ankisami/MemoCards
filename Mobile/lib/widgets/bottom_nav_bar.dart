@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:memocards/constants.dart';
-import 'package:memocards/main.dart';
 import 'package:memocards/screens/cardsStore_screen.dart';
 import 'package:memocards/screens/today_screen.dart';
+
+import '../screens/home_screen.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({
@@ -25,9 +26,11 @@ class BottomNavBar extends StatelessWidget {
               press: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) {
-                    return TodayScreen();
-                  }),
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return TodayScreen();
+                    },
+                  ),
                 );
               }),
           BottomNavItem(
