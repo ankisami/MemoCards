@@ -1,16 +1,54 @@
 # memocards
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+  <h1 align="center">MemoCards</h1>
 
-A few resources to get you started if this is your first Flutter project:
+  <p align="center">
+    <h3>Description</h3>
+    <br>
+    <p>
+    Projet réalisé en Flutter & Go.<br>
+    MeMoCards est un projet de semestre 5 réalisé par 2 étudiants en branche Ingénierie du Logiciel.<br>
+    Ce projet est une application mobile à but éducatif et qui se repose sur le principe des Flash Cards.<br>
+   Un jeu de cartes mémoire est un dispositif d'apprentissage fondé sur la technique de la répétition espacée.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+   Une carte mémoire étant une fiche cartonnée comportant une question et la réponse au dos, l'exercice consiste à tirer les cartes, et donc les questions, une à une, à essayer d'y répondre, puis à les répartir en fonction de la qualité de la réponse, appréciée par l'apprenant ; une autre succession de tirages intervenant quelque temps après, etc., jusqu'à ce que l'ensemble des réponses soient données sans erreur.
+    </p>
+    
+  </p>
+</p>
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Table of contents
+
+
+- [Images](#images)
+- [Creators](#creators)
+
+
+
+
+
+## Images
+
+ <img src="https://raw.githubusercontent.com/ankisami/UltimateFight/master/DemoImages/img_connexion.png" alt="Logo" width=500 height=500>
+
+<img src="https://raw.githubusercontent.com/ankisami/UltimateFight/master/DemoImages/img_Menu.png" alt="Logo" width=500 height=500>
+ 
+  <img src="https://raw.githubusercontent.com/ankisami/UltimateFight/master/DemoImages/img_ReadyGame.png" alt="Logo" width=500 height=500>
+
+
+ 
+ 
+## Creators
+
+**ANKI Sami** <br>
+**GONI Baptiste** <br>
+
+
+
+
+
+
+
