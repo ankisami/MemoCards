@@ -32,11 +32,11 @@
 
 ## Images
 
- <img src="https://raw.githubusercontent.com/ankisami/MemoCards/master/DemoImages/img_Menu.png" alt="Logo" width=400 height=1000>
+ <img src="https://raw.githubusercontent.com/ankisami/MemoCards/master/DemoImages/img_Menu.png" alt="Logo" width=200 height=450>
  
-  <img src="https://raw.githubusercontent.com/ankisami/MemoCards/master/DemoImages/img_FlashCards.png" alt="Logo" width=400 height=1000>
+  <img src="https://raw.githubusercontent.com/ankisami/MemoCards/master/DemoImages/img_FlashCards.png" alt="Logo" width=200 height=450>
   
-   <img src="https://raw.githubusercontent.com/ankisami/MemoCards/master/DemoImages/img_connexion.png" alt="Logo" width=400 height=1000>
+   <img src="https://raw.githubusercontent.com/ankisami/MemoCards/master/DemoImages/img_connexion.png" alt="Logo" width=200 height=450>
 
 
 
