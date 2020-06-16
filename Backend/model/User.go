@@ -4,11 +4,21 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"golang.org/x/crypto/bcrypt"
 )
+
+type ErrorResponse struct {
+	Err string
+}
+type error interface {
+	Error() string
+}
 
 var db *gorm.DB
 var err error
@@ -54,7 +64,22 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	vars := mux.Vars(r)
+	user := &User{}
+	json.NewDecoder(r.Body).Decode(user)
+
+	pass, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	if err != nil {
+		fmt.Println(err)
+		err := ErrorResponse{
+			Err: "Password Encryption  failed",
+		}
+		json.NewEncoder(w).Encode(err)
+	}
+
+	user.Password = string(pass)
+	db.Create(user)
+
+	/*vars := mux.Vars(r)
 	name := vars["name"]
 	email := vars["email"]
 	password := vars["password"]
@@ -66,7 +91,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		db.Create(&User{Name: name, Email: email, Password: password})
 
 		fmt.Fprint(w, "NEW USER created ")
-	}
+	}*/
 
 }
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
@@ -141,4 +166,58 @@ func ConnectionUser(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Fprint(w, "Email ou mdp incorrect ")
 	}
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	user := &User{}
+	err := json.NewDecoder(r.Body).Decode(user)
+	if err != nil {
+		var resp = map[string]interface{}{"status": false, "message": "Invalid request"}
+		json.NewEncoder(w).Encode(resp)
+		return
+	}
+	resp := FindOne(user.Email, user.Password)
+	json.NewEncoder(w).Encode(resp)
+}
+
+func FindOne(email, password string) map[string]interface{} {
+	user := &User{}
+
+	/*db.Where("email= ? ", email).Find(&user)
+	if user.ID == 0 {
+		var resp = map[string]interface{}{"status": false, "message": "Email address not found"}
+		return resp
+	}*/
+	if err := db.Where("Email = ?", email).First(user).Error; err != nil {
+		var resp = map[string]interface{}{"status": false, "message": "Email address not found"}
+		return resp
+	}
+	expiresAt := time.Now().Add(time.Minute * 100000).Unix()
+
+	errf := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	if errf != nil && errf == bcrypt.ErrMismatchedHashAndPassword { //Password does not match!
+		var resp = map[string]interface{}{"status": false, "message": "Invalid login credentials. Please try again"}
+		return resp
+	}
+
+	tk := &Token{
+		UserID: user.ID,
+		Name:   user.Name,
+		Email:  user.Email,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: expiresAt,
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
+
+	tokenString, error := token.SignedString([]byte("secret"))
+	if error != nil {
+		fmt.Println(error)
+	}
+
+	var resp = map[string]interface{}{"status": false, "message": "logged in"}
+	resp["token"] = tokenString //Store the token in the response
+	resp["user"] = user
+	return resp
 }

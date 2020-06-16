@@ -13,11 +13,12 @@ func InitializeRouter() *mux.Router {
 
 	//Route User
 	myRouter.HandleFunc("/users", model.AllUsers).Methods("GET")
+	myRouter.HandleFunc("/user/login", model.Login).Methods("GET")
 
 	myRouter.HandleFunc("/user/{name}", model.DeleteUser).Methods("DELETE")
 	myRouter.HandleFunc("/user/{name}/{email}", model.UpdateUser).Methods("PUT")
 
-	myRouter.HandleFunc("/user/{name}/{email}/{password}", model.CreateUser).Methods("POST")
+	myRouter.HandleFunc("/newuser", model.CreateUser).Methods("POST")
 	myRouter.HandleFunc("/user/GetUser/{email}", model.GetUser).Methods("GET")
 	myRouter.HandleFunc("/user/connection/{email}/{password}", model.ConnectionUser).Methods("GET")
 
